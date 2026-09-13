@@ -1,7 +1,13 @@
-# Détection de Fraude Bancaire par Machine Learning
+#  Détection de Fraude Bancaire par Machine Learning
 
 Système de classification pour identifier des transactions frauduleuses au sein d'un flux massivement déséquilibré, avec traitement du déséquilibre (SMOTE), comparaison de modèles et optimisation orientée métier (Recall / F1-Score).
 
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-orange)
+![imbalanced-learn](https://img.shields.io/badge/imbalanced--learn-SMOTE-7B1E3A)
+![License](https://img.shields.io/badge/License-MIT-D4AF37)
+
+---
 
 ##  Contexte & problématique
 
@@ -35,7 +41,7 @@ Ce projet répond à une problématique métier concrète : **comment détecter 
 - **SMOTE** (Synthetic Minority Over-sampling Technique) appliqué **uniquement sur le train** :
 
 | | Classe 0 (normal) | Classe 1 (fraude) |
-
+|---|---|---|
 | Avant SMOTE | 227 451 | 394 |
 | Après SMOTE | 227 451 | 227 451 |
 
@@ -49,6 +55,7 @@ Deux modèles de classification entraînés sur les données rééquilibrées et
 ### Performances au seuil par défaut (0.5)
 
 | Modèle | Recall (Fraude) | Precision (Fraude) | F1-Score (Fraude) |
+|---|---|---|---|
 | Logistic Regression | 0.92 | 0.06 | 0.11 |
 | **Random Forest** | 0.84 | 0.85 | **0.84** |
 
@@ -61,6 +68,7 @@ Deux modèles de classification entraînés sur les données rééquilibrées et
 Le seuil par défaut (0.5) s'est révélé largement sous-optimal pour un dataset aussi déséquilibré. Après recherche du seuil maximisant le F1-Score sur la courbe Precision-Recall :
 
 | Modèle | Seuil | Recall | Precision | F1-Score |
+|---|---|---|---|---|
 | Logistic Regression (optimisé) | ~0.999 | 0.816 | 0.833 | **0.825** |
 
 **Constat clé** : au seuil par défaut, la Logistic Regression semblait très inférieure au Random Forest (F1 = 0.11). Après calibration du seuil, elle devient quasiment compétitive (F1 = 0.825 vs 0.84) — la comparaison de modèles au seuil 0.5 par défaut est une erreur méthodologique classique dans ce type de problème.
@@ -79,7 +87,7 @@ Le seuil par défaut (0.5) s'est révélé largement sous-optimal pour un datase
 
 `Python` · `pandas` · `scikit-learn` · `imbalanced-learn` · `matplotlib` · `seaborn`
 
-##  Structure du repo
+## 📁 Structure du repo
 
 ```
 fraud-detection/
@@ -89,7 +97,6 @@ fraud-detection/
 ├── correlation_with_class.png
 ├── confusion_matrices.png
 ├── precision_recall_curve.png
-└── requirements.txt
 ```
 
 ##  Reproduire le projet
@@ -98,6 +105,5 @@ fraud-detection/
 pip install -r requirements.txt
 ```
 
+
 Le dataset se télécharge automatiquement via l'API Kaggle (voir première cellule du notebook).
-
-
